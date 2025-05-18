@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Calculator</title>
+  </head>
+  <body>
+    <header class="header">
+      <h1 class="header__title">Калькулятор затрат</h1>
+    </header>
+    <main class="main">
+      <section class="new-expenses section">
+        <h1 class="new-expenses__title">Добавить новую затрату</h1>
+
+        <form action="" class="new-expenses__form">
+          <div class="new-expenses__form-description column">
+            <label class="new-expenses__form-label" for="description">
+              Описание
+            </label>
+            <input
+              class="new-expenses__input"
+              type="text"
+              name="description"
+              id="description"
+            />
+          </div>
+          <div class="new-expenses__form-amount column">
+            <label class="new-expenses__form-label" for="amount"
+              >Сумма (₽)</label
+            >
+            <input
+              class="new-expenses__input"
+              type="text"
+              name="amount"
+              id="amount"
+            />
+          </div>
+          <div class="new-expenses__form-tag column">
+            <label class="new-expenses__form-label" for="tag">Категория</label
+            ><select class="new-expenses__input" name="tag" id="tag">
+              <option selected disabled value="">Выберите категорию</option>
+            </select>
+          </div>
+          <div class="new-expenses__form-date column">
+            <label class="new-expenses__form-label" for="date">Дата</label
+            ><input
+              class="new-expenses__input"
+              type="date"
+              name="date"
+              id="date"
+            />
+          </div>
+          <button
+            class="new-expenses__form-button"
+            onclick="addExpenses(event)"
+          >
+            Добавить затрату
+          </button>
+        </form>
+      </section>
+      <section class="expenses-list section">
+        <div class="expenses-list__header">
+          <h3 class="expenses-list__header-title">Список затрат</h3>
+          <div class="expenses-list__filter">
+            <div class="expenses-list__filter-sort">
+              <label class="expenses-list__filter-label" for="sort"
+                >Сортировка</label
+              >
+              <select
+                class="expenses-list__filter-select"
+                name="dateSort"
+                id="dateSort"
+              >
+                <option value="newSort">По дате (сначала новые)</option>
+                <option value="oldSort">По дате (сначала старые)</option>
+                <option value="expensiveSort">
+                  По сумме(от большего к меньшему)
+                </option>
+                <option value="cheapSort">
+                  По сумме(от меньшего к большему)
+                </option>
+              </select>
+            </div>
+            <div class="expenses-list__filter-tag">
+              <label class="expenses-list__filter-label" for="tagSort"
+                >Фильтр по категориии</label
+              >
+              <select
+                class="expenses-list__filter-select"
+                name="tagSort"
+                id="tagSort"
+              >
+                <option selected value="Все категории">Все категории</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="expenses-list__columns-title">
+          <span class="expense-list__item-element">Описание</span>
+          <span class="expense-list__item-element">Сумма</span>
+          <span class="expense-list__item-element">Категория</span>
+          <span class="expense-list__item-element">Дата</span>
+          <span class="expense-list__item-element">Действия</span>
+        </div>
+        <ul></ul>
+        <div class="expenses-list__footer">
+          <div class="expenses-list__sum"></div>
+          <div class="expenses-list__pagination-container">
+            <button class="expenses-list__pagination-button" id="prev">&lt;</button>
+            <ul class="expenses-list__pagination"></ul>
+            <button class="expenses-list__pagination-button" id="next">&gt;</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
