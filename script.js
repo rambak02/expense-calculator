@@ -1,117 +1,4 @@
 let expenses = [
-  { id: 2, description: "1", amount: 3000, tag: "Еда", date: "2025-05-18" },
-  {
-    id: 3,
-    description: "2",
-    amount: 2000,
-    tag: "Развлечения",
-    date: "2025-05-18",
-  },
-  {
-    id: 4,
-    description: "3",
-    amount: 3000,
-    tag: "Развлечения",
-    date: "2025-05-15",
-  },
-  {
-    id: 5,
-    description: "4",
-    amount: 3000,
-    tag: "Развлечения",
-    date: "2025-05-18",
-  },
-  {
-    id: 6,
-    description: "5",
-    amount: 3000,
-    tag: "Развлечения",
-    date: "2025-05-16",
-  },
-  { id: 7, description: "6", amount: 3000, tag: "Авто", date: "2025-05-18" },
-  {
-    id: 8,
-    description: "7",
-    amount: 3000,
-    tag: "Развлечения",
-    date: "2025-05-17",
-  },
-  {
-    id: 9,
-    description: "8",
-    amount: 3000,
-    tag: "Развлечения",
-    date: "2025-05-18",
-  },
-  {
-    id: 10,
-    description: "9",
-    amount: 1000,
-    tag: "Развлечения",
-    date: "2025-05-18",
-  },
-  {
-    id: 11,
-    description: "10",
-    amount: 3000,
-    tag: "Развлечения",
-    date: "2025-05-14",
-  },
-  {
-    id: 12,
-    description: "Пуп",
-    amount: 3000,
-    tag: "Развлечения",
-    date: "2025-05-18",
-  },
-  {
-    id: 13,
-    description: "Суп",
-    amount: 3000,
-    tag: "Развлечения",
-    date: "2025-05-18",
-  },
-  { id: 14, description: "Gуп", amount: 3000, tag: "Еда", date: "2025-05-18" },
-  { id: 15, description: "Пуп", amount: 3000, tag: "Еда", date: "2025-05-18" },
-  { id: 16, description: "Сюп", amount: 3000, tag: "Еда", date: "2025-05-18" },
-  { id: 17, description: "Sуп", amount: 3000, tag: "Еда", date: "2025-05-18" },
-  { id: 18, description: "Суp", amount: 3000, tag: "Еда", date: "2025-05-18" },
-  { id: 19, description: "dfd", amount: 3000, tag: "Еда", date: "2025-05-18" },
-  {
-    id: 20,
-    description: "Суdfdfп",
-    amount: 3000,
-    tag: "Еда",
-    date: "2025-05-18",
-  },
-  {
-    id: 21,
-    description: "Суfdп",
-    amount: 3000,
-    tag: "Еда",
-    date: "2025-05-18",
-  },
-  {
-    id: 22,
-    description: "Суsfп",
-    amount: 3000,
-    tag: "Еда",
-    date: "2025-05-18",
-  },
-  {
-    id: 23,
-    description: "Суdffп",
-    amount: 3000,
-    tag: "Еда",
-    date: "2025-05-18",
-  },
-  {
-    id: 24,
-    description: "Суdfп",
-    amount: 3000,
-    tag: "Еда",
-    date: "2025-05-18",
-  },
 ];
 
 /**Список категорий */
@@ -163,7 +50,7 @@ const renderExpenses = (array) => {
   const productOnPage = array.slice(firstProductIndex, lastProductIndex);
 
   expensesList.innerHTML = "";
-  productOnPage.forEach((exp, index) => {
+  productOnPage.forEach((exp) => {
     const expHTML = document.createElement("li");
     expHTML.className = "expenses-list__item";
 
@@ -300,6 +187,7 @@ const updatePagination = (array) => {
     }
   });
 };
+
 /**  Функция подсчета итога
  * @array массив трат
  */
@@ -426,9 +314,21 @@ const addExpenses = (event) => {
   calculatorTotal(expenses);
 };
 
+let currentTag = "";
+let currentDateAndAmountSort = "newSort"
+const timeAndAmountSortValue = [
+  "newSort",
+  "oldSort",
+  "expensiveSort",
+  "cheapSort",
+];
+
 /** Фильтрация трат */
 const filterSort = (event) => {
-  filteredExpenses = [...expenses];
+  if (!currentTag || (event.target.value !== currentTag && !timeAndAmountSortValue.includes(event.target.value))) {
+    currentTag = event.target.value
+    filteredExpenses = [...expenses];
+  }
 
   /** Фильтрация по категориям */
   if (tags.includes(event.target.value)) {
@@ -437,14 +337,18 @@ const filterSort = (event) => {
     );
   }
 
+  if (timeAndAmountSortValue.includes(event.target.value)) {
+    currentDateAndAmountSort = event.target.value
+  }
+
   /** Фильтрация по дате и сумме */
-  if (event.target.value === "newSort") {
+  if (currentDateAndAmountSort === "newSort") {
     filteredExpenses.sort((a, b) => new Date(b.date) - new Date(a.date));
-  } else if (event.target.value === "oldSort") {
+  } else if ( currentDateAndAmountSort === "oldSort") {
     filteredExpenses.sort((a, b) => new Date(a.date) - new Date(b.date));
-  } else if (event.target.value === "expensiveSort") {
+  } else if ( currentDateAndAmountSort === "expensiveSort") {
     filteredExpenses.sort((a, b) => b.amount - a.amount);
-  } else if (event.target.value === "cheapSort") {
+  } else if ( currentDateAndAmountSort === "cheapSort") {
     filteredExpenses.sort((a, b) => a.amount - b.amount);
   }
 
